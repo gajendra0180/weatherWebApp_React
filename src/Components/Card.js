@@ -2,6 +2,7 @@ import React from "react";
 import "./Card.css";
 const Card = (props) => {
 
+  // Background image of each card in the web page will be random and according to the tags of the weather_type
   var bgImg=`https://images.unsplash.com/photo-1503643766889-957dc3096721?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=900&ixid=MnwxfDB8MXxyYW5kb218MHx8bmlnaHR8fHx8fHwxNjQwMjc2MTg5&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1600`
   if(props.weather_image!="")
     bgImg=props.weather_image
