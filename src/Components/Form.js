@@ -2,24 +2,28 @@ import { useRef, useState, useEffect, useCallback } from "react";
 import Card from "./Card";
 import "./Form.css";
 import alanBtn from "@alan-ai/alan-sdk-web";
+import { v4 as uuidv4 } from 'uuid';
 
 const Form = () => {
-  // Alan Instance started
-  const [alanInstance, setAlanInstance] = useState();
 
+
+  const [alanInstance, setAlanInstance] = useState();
   const speak = useCallback(() => {
     alanInstance.playText(
       "Sorry But We are not able to find any such place in our database.Please Try Again"
     );
   }, [alanInstance]);
 
+
+  // Event listener for making the alan speak when some errors encountered
   useEffect(() => {
-    window.addEventListener("error_occurred", speak);
     return () => {
       window.removeEventListener("error_occurred", speak);
     };
   }, [speak]);
 
+
+// Basic Alan AI Setup
   useEffect(() => {
     if (alanInstance != null) return;
     setAlanInstance(
@@ -34,12 +38,10 @@ const Form = () => {
       })
     );
   }, []);
-  // Alan Instance ends
+
 
   const [totalCardsPinned, settotalCardsPinned] = useState(0);
-
   const location = useRef();
-
   const [weatherCards, setWeatherCards] = useState([
     {
       name: totalCardsPinned + " Cards Pinned",
@@ -50,6 +52,8 @@ const Form = () => {
     },
   ]);
 
+
+  // This function will be used to update the UI by adding the cards to the view
   function update(
     name,
     temperature,
@@ -79,6 +83,7 @@ const Form = () => {
     }
   }
 
+  // This function will fetch the data from the open weather server and unsplash server through APIs
   function getData(data) {
     var cityName;
 
@@ -147,6 +152,7 @@ const Form = () => {
           {weatherCards.map((e) => {
             return (
               <Card
+               key={uuidv4()}
                 city={e.name}
                 temperature={e.temperature}
                 temperature_humidity={e.temperature_humidity}
